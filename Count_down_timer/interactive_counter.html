@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Count Down Timer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                'Lucida Grande', 'Lucida Sans Unicode',
+                Geneva, Verdana, sans-serif;
+
+            background: linear-gradient(135deg, #141e30, #243b55);
+
+            color: white;
+        }
+
+
+        /* Main timer box */
+
+        .edit {
+            width: 420px;
+            padding: 40px;
+
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.4);
+
+            backdrop-filter: blur(10px);
+        }
+
+
+        /* Heading */
+
+        h2 {
+            margin: 0 0 25px 0;
+
+            font-size: 28px;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* Timer */
+
+        #timer {
+            font-family: 'Courier New', monospace;
+
+            font-size: 70px;
+
+            font-weight: bold;
+
+            letter-spacing: 5px;
+
+            margin: 30px 0;
+
+            padding: 20px;
+
+            background: rgba(0, 0, 0, 0.25);
+
+            border-radius: 15px;
+
+            box-shadow:
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+
+        /* All buttons */
+
+        button {
+            border: none;
+
+            padding: 12px 22px;
+
+            margin: 6px;
+
+            font-size: 18px;
+
+            font-family: inherit;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease,
+                background 0.15s ease;
+        }
+
+
+        /* Hover effect */
+
+        button:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* Click effect */
+
+        button:active {
+            transform: translateY(0);
+
+            box-shadow:
+                0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* Plus and Minus buttons */
+
+        #plus,
+        #min {
+            width: 65px;
+
+            font-size: 25px;
+
+            color: white;
+
+            background: #2563eb;
+        }
+
+
+        #plus:hover,
+        #min:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* Reset button */
+
+        #res {
+            background: #ef4444;
+
+            color: white;
+        }
+
+
+        #res:hover {
+            background: #dc2626;
+        }
+
+
+        /* Start button */
+
+        #start {
+            background: #22c55e;
+
+            color: white;
+
+            padding: 12px 30px;
+        }
+
+
+        #start:hover {
+            background: #16a34a;
+        }
+
+
+        /* Pause button */
+
+        #pause {
+            background: #f59e0b;
+
+            color: white;
+
+            padding: 12px 30px;
+        }
+
+
+        #pause:hover {
+            background: #d97706;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 500px) {
+
+            .edit {
+                width: 90%;
+
+                padding: 25px;
+            }
+
+
+            #timer {
+                font-size: 50px;
+
+                padding: 15px;
+            }
+
+
+            button {
+                font-size: 16px;
+
+                padding: 10px 16px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="edit">
+
+        <h2>Interactive Counter</h2>
+
+        <!-- Timer display -->
+        <div id="timer">05:00</div>
+
+        <button id="plus">+</button>
+        <button id="res">Reset</button>
+        <button id="min">-</button>
+
+        <br><br>
+
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+
+    </div>
+
+
+    <script>
+
+        // Get buttons
+        let add = document.getElementById("plus");
+        let reset = document.getElementById("res");
+        let min = document.getElementById("min");
+
+        let start = document.getElementById("start");
+        let pause = document.getElementById("pause");
+
+
+        // Timer variables
+        let timerLeft = 5 * 60;
+        let timerInterval = null;
+
+
+        // Display timer
+        function updateDisplay() {
+
+            let minutes = Math.floor(timerLeft / 60);
+            let seconds = timerLeft % 60;
+
+            minutes = String(minutes).padStart(2, "0");
+            seconds = String(seconds).padStart(2, "0");
+
+            document.getElementById("timer").textContent =
+                `${minutes}:${seconds}`;
+        }
+
+
+        // Start timer
+        function startTimer() {
+
+            // Prevent multiple timers
+            if (timerInterval !== null) return;
+
+            timerInterval = setInterval(() => {
+
+                if (timerLeft > 0) {
+
+                    timerLeft--;
+
+                    updateDisplay();
+
+                } else {
+
+                    pauseTimer();
+
+                    alert("Time's up!");
+
+                }
+
+            }, 1000);
+        }
+
+
+        // Pause timer
+        function pauseTimer() {
+
+            clearInterval(timerInterval);
+
+            timerInterval = null;
+        }
+
+
+        // Reset timer
+        function resetTimer() {
+
+            pauseTimer();
+
+            timerLeft = 5 * 60;
+
+            updateDisplay();
+        }
+
+
+        // Add 1 minute
+        function addTime() {
+
+            timerLeft += 60;
+
+            updateDisplay();
+        }
+
+
+        // Remove 1 minute
+        function subtractTime() {
+
+            timerLeft = Math.max(0, timerLeft - 60);
+
+            updateDisplay();
+        }
+
+
+        // Button events
+        add.addEventListener("click", addTime);
+
+        reset.addEventListener("click", resetTimer);
+
+        min.addEventListener("click", subtractTime);
+
+        start.addEventListener("click", startTimer);
+
+        pause.addEventListener("click", pauseTimer);
+
+
+        // Show initial timer
+        updateDisplay();
+
+    </script>
+
+</body>
+
+</html>

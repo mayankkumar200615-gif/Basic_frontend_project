@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <title> calculator Simulator </title>
+</head>
+
+<body>
+
+
+    <style>
+        * {
+            margin: 2px;
+            padding: auto;
+            background-color: #cbbfbf;
+            text-align: center;
+            border-radius: 2px 3px 7px 9px;
+            box-sizing: border-box;
+            font-display: block;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+        }
+
+        #display {
+            align-items: center;
+            text-align: justify;
+
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            border: 2px solid black;
+            padding: 15px;
+            border-radius: 15px;
+            background-color: #782;
+        }
+    </style>
+
+
+
+
+
+
+
+
+    <div class="calculator">
+        <input type="text" id="display" value="0" />
+        <div class="buttons">
+
+            <button type="submit" class="clear" onclick="clearDisplay()"> C</button>
+            <button type="submit" class="Back" onclick="deleteLast()"> Back</button>
+            <button type="submit" class="operator" onclick="appendValue('%')"> %</button>
+            <button type="submit" class="operator" onclick="appendValue('/')"> /</button>
+            <br>
+
+
+            <button type="submit" onclick="appendValue('7')"> 7</button>
+            <button type="submit" onclick="appendValue('8')"> 8</button>
+            <button type="submit" onclick="appendValue('9')"> 9</button>
+            <button type="submit" class="operator" onclick="appendValue('*')"> X</button>
+            <br>
+
+
+            <button type="submit" onclick="appendValue('4')"> 4</button>
+            <button type="submit" onclick="appendValue('5')"> 5</button>
+            <button type="submit" onclick="appendValue('6')"> 6</button>
+            <button type="submit" class="operator" onclick="appendValue('+')">+</button>
+            <br>
+
+            <button type="submit" onclick="appendValue('1')"> 1</button>
+            <button type="submit" onclick="appendValue('2')"> 2</button>
+            <button type="submit" onclick="appendValue('3')"> 3</button>
+            <button type="submit" class="operator" onclick="appendValue('-')"> -</button>
+            <br>
+
+
+            <button type="submit" onclick="appendValue('0')"> 0</button>
+            <button type="submit" onclick="appendValue('.')"> .</button>
+            <button type="submit" class="calculate" onclick="calculate()"> =</button>
+
+
+
+        </div>
+    </div>
+    <script>
+
+        const disp = document.getElementById("display");
+
+        function clearDisplay() {
+            disp.value = "0";
+
+        }
+        function deleteLast() {
+            if (dis.value.length === 1) {
+                disp.value = "0";
+            }
+            else {
+                disp.value = disp.value.slice(0, -1);
+            }
+
+        }
+
+        function appendValue(value) {
+            if (disp.value === "0" && !isNaN(value)) {
+                disp.value = value;
+            }
+            else {
+                disp.value += value;
+            }
+        }
+
+
+        function calculate() {
+            try {
+                disp.value = eval(disp.value);
+            }
+            catch (error) {
+                disp.value = "Error";
+            }
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

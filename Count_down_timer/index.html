@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Page</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
+        }
+
+        .data {
+            width: 400px;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #243b55;
+            font-size: 30px;
+        }
+
+        .login {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 5px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        span {
+            min-height: 20px;
+            color: red;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .info {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 500px) {
+
+            .data {
+                width: 90%;
+                padding: 30px 25px;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="data">
+
+        <h2>Login Page</h2>
+
+        <form id="loginForm">
+
+            <label for="email">Email Address</label>
+
+            <input type="email" id="email" placeholder="Enter your email">
+
+            <span id="email_error"></span>
+
+
+            <label for="pass">Password</label>
+
+            <input type="password" id="pass" placeholder="Enter your password">
+
+            <span id="password_error"></span>
+
+
+            <button type="submit">
+                Login
+            </button>
+
+            <div class="info">
+                Enter your details to continue
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <script>
+
+        let form = document.getElementById("loginForm");
+
+        form.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            let email =
+                document.getElementById("email").value;
+
+            let pass =
+                document.getElementById("pass").value;
+
+            let emailError =
+                document.getElementById("email_error");
+
+            let passError =
+                document.getElementById("password_error");
+
+            let valid = true;
+
+            emailError.innerHTML = "";
+            passError.innerHTML = "";
+
+            if (email === "") {
+
+                emailError.innerHTML =
+                    "Please enter email id";
+
+                valid = false;
+
+            }
+
+            else if (!email.includes("@")) {
+
+                emailError.innerHTML =
+                    "Please enter a valid email id";
+
+                valid = false;
+            }
+
+            if (pass === "") {
+
+                passError.innerHTML =
+                    "Please enter password";
+
+                valid = false;
+
+            }
+
+            else if (pass.length < 8) {
+
+                passError.innerHTML =
+                    "Password must contain at least 8 characters";
+
+                valid = false;
+            }
+
+            if (valid === true) {
+
+                window.location.href =
+                    "interactive_counter.html";
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
